@@ -19,10 +19,10 @@
     "browserify": "^14.4.0"
   },
   "scripts": {
-    "build": "node_modules/browserify/bin/cmd.js src/initEditor.js -o public/bundle.js -t babelify",
-    "test": "nodemon --exec 'npm run build && npm start' index.js --ignore public/bundle.js",
+    "compile": "node_modules/browserify/bin/cmd.js src/initEditor.js -o public/bundle.js -t babelify",
+    "test": "nodemon --exec 'npm run compile && npm start' index.js --ignore public/bundle.js",
     "start": "node index.js",
-    "postinstall": "npm run build"
+    "postinstall": "npm run compile"
   },
   "repository": {
     "type": "git",
