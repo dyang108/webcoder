@@ -19,7 +19,7 @@
     "browserify": "^14.4.0"
   },
   "scripts": {
-    "compile": "node_modules/browserify/bin/cmd.js src/initEditor.js -o public/bundle.js -t babelify",
+    "compile": "./node_modules/browserify/bin/cmd.js src/initEditor.js -o public/bundle.js -t babelify",
     "test": "nodemon --exec 'npm run compile && npm start' index.js --ignore public/bundle.js",
     "start": "node index.js",
     "postinstall": "npm run compile"
@@ -29,5 +29,8 @@
     "url": "git+https://github.com/dyang108/webcoder.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": "6.10.2"
+  }
 }
