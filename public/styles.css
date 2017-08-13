@@ -7,6 +7,8 @@ body {
     margin: 0;
     position: relative;
     height: 100vh;
+    border: none;
+    border-radius: 0;
 }
 
 .lang-pick {
@@ -16,8 +18,15 @@ body {
     padding-bottom: 1px;
 }
 
-.form-control {
-    background-color: #757579;
-    border-color: black;
-    color: #eee;
+.main-panel {
+    margin-top: 30vh;
+    background-color: rgba(20, 20, 20, .9);
+    color: #ccc;
+}
+
+.main-bg {
+    background-image: url('./bg-code.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
 }

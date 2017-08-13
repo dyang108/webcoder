@@ -1,3 +1,4 @@
+require('dotenv').config()
 // Set up server and socket
 var express = require('express')
 var app = express()
@@ -167,8 +168,6 @@ wss.on('connection', function connection (ws) {
   })
 })
 
-const port = 8000
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'public')))
@@ -176,20 +175,20 @@ app.set('view engine', 'pug')
 app.set('views', './public')
 
 // connect to the database
-var url = 'mongodb://localhost:27017/webcoder'
+var url = process.env.DB_URL
 mongoose.connect(url)
 var db = mongoose.connection
 
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () => {
-  server.listen(port, () => {
-    console.log('App running on port ' + port)
+  server.listen(process.env.PORT, () => {
+    console.log('App running on port ' + process.env.PORT)
   })
 })
 
 app.route('/')
   .get((req, res) => {
-    res.sendFile('index.html')
+    res.render('index', {url: process.env.MAIN_URL})
   })
 
 app.route('/:sessionId')
@@ -202,7 +201,7 @@ app.route('/:sessionId')
         return
       }
       if (!st) {
-        res.redirect('http://localhost:8000/')
+        res.redirect(process.env.MAIN_URL)
         res.end()
         return
       }
@@ -213,7 +212,7 @@ app.route('/:sessionId')
 app.route('/create-session')
   .post((req, res) => {
     if (req.body.sessionId.includes(' ')) {
-      res.redirect('http://localhost:8000')
+      res.redirect(process.env.MAIN_URL)
       return
     }
     SessionText.findOne({
@@ -225,7 +224,7 @@ app.route('/create-session')
         return
       }
       if (existingSt) {
-        res.redirect('http://localhost:8000/' + req.body.sessionId)
+        res.redirect(process.env.MAIN_URL + req.body.sessionId)
         res.end()
       } else {
         let st = new SessionText({
@@ -239,7 +238,7 @@ app.route('/create-session')
             res.send(500)
             return
           }
-          res.redirect('http://localhost:8000/' + req.body.sessionId)
+          res.redirect(process.env.MAIN_URL + req.body.sessionId)
           res.end()
         })
       }

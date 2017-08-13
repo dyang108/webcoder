@@ -1,0 +1,14 @@
+doctype html
+html(lang="en")
+head
+  title WebCoder
+  link(rel="stylesheet" type="text/css" href="bootstrap.min.css")
+  link(rel="stylesheet" type="text/css" href="styles.css")
+body(class="container main-bg")
+  div(class="jumbotron main-panel")
+    h2 WebCoder
+    label Input a url to start collaborating
+    form(class="form-horizontal" action='' + url + 'create-session' method="post")
+      div(class="input-group input-group-lg")
+        span(class="input-group-addon")= url
+        input(type="text" name="sessionId" class="form-control")

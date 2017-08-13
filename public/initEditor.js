@@ -100,7 +100,6 @@ function populateLanguages () {
   }
 }
 
-
 function changeHighlighting (newMode) {
   editor.session.setMode(newMode)
   if (!isChanging) {
