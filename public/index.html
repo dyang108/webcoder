@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebCoder</title>
+    <link rel="stylesheet" href="./bootstrap.min.css"/>
+</head>
+<body class="container" style="background-color: #555">
+    <div class="jumbotron" style="margin-top: 30vh;">
+    <h2>WebCoder</h2>
+    <label for="basic-url">Input a url to start coding</label>
+    <form class="form-horizontal" action="http://localhost:8000/create-session" method="post">
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon">https://myurl.com/</span>
+            <input type="text" name="sessionId" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+        </div>
+    </form>
+</body>
+</html>
