@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+  title WebCoder
+  link(rel="stylesheet" type="text/css" href="bootstrap.min.css")
+  link(rel="stylesheet" type="text/css" href="styles.css")
+body
+  script var mode = "!{mode}"
+  div(class="lang-pick")
+    div(class="form-group")
+      select(class="form-control" id="language-select" onchange="changeHighlighting(this.value)")
+  pre(id="editor")= text
+
+<script src="src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="initEditor.js"></script>

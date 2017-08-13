@@ -1,0 +1,23 @@
+body {
+    overflow: hidden;
+    margin: 0;
+}
+
+#editor {
+    margin: 0;
+    position: relative;
+    height: 100vh;
+}
+
+.lang-pick {
+    background-color: #272822;
+    padding: 10px;
+    margin-bottom: 0;
+    padding-bottom: 1px;
+}
+
+.form-control {
+    background-color: #757579;
+    border-color: black;
+    color: #eee;
+}
