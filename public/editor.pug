@@ -10,8 +10,8 @@ body
   script var mode = "!{mode}", socket="!{socket}"
   div(class="lang-pick")
     div(class="form-group")
-      select(class="form-control" id="language-select" onchange="changeHighlighting(this.value)")
+      select(class="form-control" id="language-select")
   pre(id="editor")= text
-
   script(src="src-noconflict/ace.js" type="text/javascript" charset="utf-8")
-  script(src="initEditor.js")
+  script(src="bundle.js")
+

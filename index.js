@@ -128,23 +128,26 @@ function closeConnection (clientHandle) {
           console.log(err)
           return
         }
-        Session.find({
-          sessionId
-        }, (err, sessions) => {
-          if (err) {
-            console.log(err)
-            return
-          }
-          if (sessions.length === 0) {
-            SessionText.remove({
-              sessionId
-            }, (err) => {
-              if (err) {
-                console.log(err)
-              }
-            })
-          }
-        })
+        // allow users to get back on within 2 seconds of closing
+        setTimeout(() => {
+          Session.find({
+            sessionId
+          }, (err, sessions) => {
+            if (err) {
+              console.log(err)
+              return
+            }
+            if (sessions.length === 0) {
+              SessionText.remove({
+                sessionId
+              }, (err) => {
+                if (err) {
+                  console.log(err)
+                }
+              })
+            }
+          })
+        }, 2000)
       })
     }
   })

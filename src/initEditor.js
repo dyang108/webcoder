@@ -1,12 +1,14 @@
+import languages from './languages'
+
 var editor = ace.edit('editor')
 var splitUrl = document.location.href.split('/')
 var sessionId = splitUrl[splitUrl.length - 1]
 document.getElementById('editor').style.fontSize = '14px'
 editor.setTheme('ace/theme/monokai')
+var langSelect = document.getElementById('language-select')
 editor.session.setMode(mode)
 
 var isChanging = false
-
 var ws = new WebSocket(socket)
 
 ws.onopen = () => {
@@ -45,50 +47,13 @@ editor.session.on('change', function (e) {
   }
 })
 
-var languages = [{
-  name: 'JavaScript',
-  src: 'ace/mode/javascript'
-}, {
-  name: 'Python',
-  src: 'ace/mode/python'
-}, {
-  name: 'C/C++',
-  src: 'ace/mode/c_cpp'
-}, {
-  name: 'Java',
-  src: 'ace/mode/java'
-}, {
-  name: 'Objective-C',
-  src: 'ace/mode/objectivec'
-}, {
-  name: 'Scala',
-  src: 'ace/mode/scala'
-}, {
-  name: 'Go',
-  src: 'ace/mode/golang'
-}, {
-  name: 'Haskell',
-  src: 'ace/mode/haskell'
-}, {
-  name: 'Ruby',
-  src: 'ace/mode/ruby'
-}, {
-  name: 'Swift',
-  src: 'ace/mode/swift'
-}, {
-  name: 'C#',
-  src: 'ace/mode/csharp'
-}]
-
 function setMode (newMode) {
   editor.session.setMode(newMode)
-  let langSelect = document.getElementById('language-select')
   let ind = languages.findIndex(elem => elem.src === newMode)
   langSelect.selectedIndex = ind
 }
 
 function populateLanguages () {
-  let langSelect = document.getElementById('language-select')
   languages.forEach(lang => {
     let opt = document.createElement('option')
     opt.setAttribute('value', lang.src)
@@ -111,3 +76,8 @@ function changeHighlighting (newMode) {
   }
 }
 populateLanguages()
+
+langSelect.onchange = function () {
+  var selectedMode = langSelect.options[langSelect.selectedIndex].value
+  changeHighlighting(selectedMode)
+}
