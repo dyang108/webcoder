@@ -205,7 +205,7 @@ app.route('/:sessionId')
         res.end()
         return
       }
-      res.render('editor', {text: st.text, mode: st.mode})
+      res.render('editor', {text: st.text, mode: st.mode, socket: process.env.SOCKET_URL})
     })
   })
 

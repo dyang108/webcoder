@@ -7,7 +7,7 @@ head
   link(rel="stylesheet" type="text/css" href="bootstrap.min.css")
   link(rel="stylesheet" type="text/css" href="styles.css")
 body
-  script var mode = "!{mode}"
+  script var mode = "!{mode}", socket="!{socket}"
   div(class="lang-pick")
     div(class="form-group")
       select(class="form-control" id="language-select" onchange="changeHighlighting(this.value)")

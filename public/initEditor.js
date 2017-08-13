@@ -7,7 +7,7 @@ editor.session.setMode(mode)
 
 var isChanging = false
 
-var ws = new WebSocket('ws://localhost:8000/')
+var ws = new WebSocket(socket)
 
 ws.onopen = () => {
   ws.send(JSON.stringify({
