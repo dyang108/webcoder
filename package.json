@@ -20,7 +20,8 @@
   "scripts": {
     "build": "browserify src/initEditor.js -o public/bundle.js -t babelify",
     "test": "nodemon --exec 'npm run build && npm start' index.js --ignore public/bundle.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
