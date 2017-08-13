@@ -175,7 +175,7 @@ app.set('view engine', 'pug')
 app.set('views', './public')
 
 // connect to the database
-var url = process.env.DB_URL
+var url = process.env.MONGODB_URI
 mongoose.connect(url)
 var db = mongoose.connection
 
