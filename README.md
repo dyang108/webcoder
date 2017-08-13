@@ -8,6 +8,6 @@ A collaborative web plain text editor
     npm run test
 
 Issues: 
-- Concurrency with sessionText on backend
+- Concurrency with sessionText and sessions on backend
 - Highlighting from other user
-- Latency from database transactions
+- Latency from database transactions interfering - more concurrency

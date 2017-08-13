@@ -4,6 +4,8 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
 var server = require('http').createServer(app)
+var CronJob = require('cron').CronJob
+
 // DB imports
 var mongoose = require('mongoose')
 mongoose.Promise = require('bluebird')
@@ -112,7 +114,40 @@ function makeEdit (msgobj, clientHandle) {
   })
 }
 
+function removeSessionLater (sessionId) {
+  let dateObj = Date.now()
+  // ten minutes before deleting the session
+  dateObj += 1000 * 60 * 10
+  let cronTime = new Date(dateObj)
+  let job = new CronJob({
+    cronTime,
+    onTick: function () {
+      Session.find({
+        sessionId
+      }, (err, sessions) => {
+        if (err) {
+          console.log(err)
+          return
+        }
+        if (sessions.length === 0) {
+          SessionText.remove({
+            sessionId
+          }, (err) => {
+            if (err) {
+              console.log(err)
+            }
+          })
+        }
+      })
+    },
+    start: false,
+    timeZone: 'America/New_York'
+  })
+  job.start()
+}
+
 function closeConnection (clientHandle) {
+  console.log('closing connection ', clientHandle)
   delete clients[clientHandle]
   Session.findOne({
     user: clientHandle
@@ -126,34 +161,20 @@ function closeConnection (clientHandle) {
       session.remove((err) => {
         if (err) {
           console.log(err)
-          return
         }
-        // allow users to get back on within 2 seconds of closing
-        setTimeout(() => {
-          Session.find({
-            sessionId
-          }, (err, sessions) => {
-            if (err) {
-              console.log(err)
-              return
-            }
-            if (sessions.length === 0) {
-              SessionText.remove({
-                sessionId
-              }, (err) => {
-                if (err) {
-                  console.log(err)
-                }
-              })
-            }
-          })
-        }, 2000)
+        removeSessionLater(sessionId)
       })
     }
   })
 }
 
+function heartbeat () {
+  this.isAlive = true
+}
+
 wss.on('connection', function connection (ws) {
+  ws.isAlive = true
+  ws.on('pong', heartbeat)
   let clientHandle = ws._socket._handle.fd
   clients[clientHandle] = ws
   ws.on('message', function incoming (message) {
@@ -170,6 +191,15 @@ wss.on('connection', function connection (ws) {
     closeConnection(clientHandle)
   })
 })
+
+const interval = setInterval(function ping () {
+  wss.clients.forEach(function each (ws) {
+    if (ws.isAlive === false) return ws.terminate()
+
+    ws.isAlive = false
+    ws.ping('', false, true)
+  })
+}, 30000)
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
