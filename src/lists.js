@@ -40,6 +40,9 @@ export var languages = [{
 }, {
   name: 'Clojure',
   src: 'ace/mode/clojure'
+}, {
+  name: 'MATLAB',
+  src: 'ace/mode/matlab'
 }]
 
 export var keybindings = [{
