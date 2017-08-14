@@ -5,11 +5,11 @@ export var languages = [{
   name: 'Python',
   src: 'ace/mode/python'
 }, {
-  name: 'C/C++',
-  src: 'ace/mode/c_cpp'
-}, {
   name: 'Java',
   src: 'ace/mode/java'
+}, {
+  name: 'C/C++',
+  src: 'ace/mode/c_cpp'
 }, {
   name: 'Objective-C',
   src: 'ace/mode/objectivec'
@@ -31,11 +31,23 @@ export var languages = [{
 }, {
   name: 'C#',
   src: 'ace/mode/csharp'
+}, {
+  name: 'Rust',
+  src: 'ace/mode/rust'
+}, {
+  name: 'Pascal',
+  src: 'ace/mode/pascal'
+}, {
+  name: 'Clojure',
+  src: 'ace/mode/clojure'
 }]
 
 export var keybindings = [{
-  name: 'Ace',
+  name: 'Default',
   src: 'ace'
+}, {
+  name: 'Sublime',
+  src: 'sublime'
 }, {
   name: 'Vim',
   src: 'ace/keyboard/vim'

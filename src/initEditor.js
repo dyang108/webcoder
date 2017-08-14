@@ -1,9 +1,11 @@
 import { languages, keybindings } from './lists'
+
 var editor = ace.edit('editor')
 var splitUrl = document.location.href.split('/')
 var sessionId = splitUrl[splitUrl.length - 1]
 document.getElementById('editor').style.fontSize = '14px'
 editor.setTheme('ace/theme/monokai')
+editor.session.setUseWorker(false)
 var langSelect = document.getElementById('language-select')
 var keybindingSelect = document.getElementById('keybinding-select')
 editor.session.setMode(mode)
@@ -97,6 +99,9 @@ keybindingSelect.onchange = function () {
   var selectedKeybinding = keybindingSelect.options[keybindingSelect.selectedIndex].value
   if (selectedKeybinding === 'ace') {
     selectedKeybinding = undefined
+  } else if (selectedKeybinding === 'sublime') {
+    selectedKeybinding = sublBindings
   }
+  console.log(JSON.stringify(editor.getKeyboardHandler()))
   editor.setKeyboardHandler(selectedKeybinding)
 }

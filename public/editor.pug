@@ -8,11 +8,11 @@ head
   link(rel="stylesheet" type="text/css" href="styles.css")
 body
   script var mode = "!{mode}", socket="!{socket}"
-  div(class="pick container")
-    div(class="form-group col-xs-6")
-      select(class="form-control select-pref" id="language-select")
-    div(class="form-group col-xs-6")
-      select(class="form-control select-pref" id="keybinding-select")
+  div(class="pick")
+    div(class="form-group col-sm-4 col-xs-6")
+      select(class="form-control input-sm select-pref" id="language-select")
+    div(class="form-group col-sm-2 col-xs-6 pull-right")
+      select(class="form-control input-sm select-pref" id="keybinding-select")
   pre(id="editor")= text
   script(src="src-min-noconflict/ace.js" type="text/javascript" charset="utf-8")
   script(src="bundle.js")

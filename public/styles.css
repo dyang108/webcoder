@@ -5,10 +5,15 @@ body {
 
 #editor {
     margin: 0;
-    position: relative;
+    position: absolute;
     height: 100vh;
     border: none;
     border-radius: 0;
+    top: 0;
+    margin-top: 56px;
+    bottom: 0;
+    left: 0;
+    right: 0
 }
 
 .select-pref {
@@ -22,6 +27,8 @@ body {
     padding: 10px;
     margin-bottom: 0;
     padding-bottom: 1px;
+    width: 100%;
+    display: table;
 }
 
 .main-panel {
