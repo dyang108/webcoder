@@ -1,11 +1,11 @@
-import languages from './languages'
-
+import { languages, keybindings } from './lists'
 var editor = ace.edit('editor')
 var splitUrl = document.location.href.split('/')
 var sessionId = splitUrl[splitUrl.length - 1]
 document.getElementById('editor').style.fontSize = '14px'
 editor.setTheme('ace/theme/monokai')
 var langSelect = document.getElementById('language-select')
+var keybindingSelect = document.getElementById('keybinding-select')
 editor.session.setMode(mode)
 
 var isChanging = false
@@ -37,6 +37,7 @@ ws.onmessage = msg => {
 }
 
 editor.session.on('change', function (e) {
+  console.log(e)
   if (!isChanging) {
     ws.send(JSON.stringify({
       type: 'edit',
@@ -64,6 +65,17 @@ function populateLanguages () {
     setMode(mode)
   }
 }
+populateLanguages()
+
+function populateKeyBindings () {
+  keybindings.forEach(kbtype => {
+    let opt = document.createElement('option')
+    opt.setAttribute('value', kbtype.src)
+    opt.innerHTML = kbtype.name
+    keybindingSelect.appendChild(opt)
+  })
+}
+populateKeyBindings()
 
 function changeHighlighting (newMode) {
   editor.session.setMode(newMode)
@@ -75,9 +87,16 @@ function changeHighlighting (newMode) {
     }))
   }
 }
-populateLanguages()
 
 langSelect.onchange = function () {
   var selectedMode = langSelect.options[langSelect.selectedIndex].value
   changeHighlighting(selectedMode)
+}
+
+keybindingSelect.onchange = function () {
+  var selectedKeybinding = keybindingSelect.options[keybindingSelect.selectedIndex].value
+  if (selectedKeybinding === 'ace') {
+    selectedKeybinding = undefined
+  }
+  editor.setKeyboardHandler(selectedKeybinding)
 }

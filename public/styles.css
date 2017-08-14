@@ -11,13 +11,13 @@ body {
     border-radius: 0;
 }
 
-#language-select {
+.select-pref {
     background-color: #474842;
     color: #ddd;
     border: none;
 }
 
-.lang-pick {
+.pick {
     background-color: #272822;
     padding: 10px;
     margin-bottom: 0;
