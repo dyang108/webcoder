@@ -39,7 +39,6 @@ ws.onmessage = msg => {
 }
 
 editor.session.on('change', function (e) {
-  console.log(e)
   if (!isChanging) {
     ws.send(JSON.stringify({
       type: 'edit',
@@ -99,8 +98,8 @@ keybindingSelect.onchange = function () {
   var selectedKeybinding = keybindingSelect.options[keybindingSelect.selectedIndex].value
   if (selectedKeybinding === 'ace') {
     selectedKeybinding = undefined
-  } else if (selectedKeybinding === 'sublime') {
-    selectedKeybinding = sublBindings
+  // } else if (selectedKeybinding === 'sublime') {
+  //   selectedKeybinding = sublBindings
   }
   console.log(JSON.stringify(editor.getKeyboardHandler()))
   editor.setKeyboardHandler(selectedKeybinding)

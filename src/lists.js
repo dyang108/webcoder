@@ -43,15 +43,21 @@ export var languages = [{
 }, {
   name: 'MATLAB',
   src: 'ace/mode/matlab'
+}, {
+  name: 'Plain Text',
+  src: 'ace/mode/text'
+}, {
+  name: 'Markdown',
+  src: 'ace/mode/markdown'
 }]
 
 export var keybindings = [{
   name: 'Default',
   src: 'ace'
 }, {
-  name: 'Sublime',
-  src: 'sublime'
-}, {
+//   name: 'Sublime',
+//   src: 'sublime'
+// }, {
   name: 'Vim',
   src: 'ace/keyboard/vim'
 }, {
