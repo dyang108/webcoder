@@ -15,4 +15,7 @@ body
       select(class="form-control input-sm select-pref" id="keybinding-select")
   pre(id="editor")= text
   script(src="src-min-noconflict/ace.js" type="text/javascript" charset="utf-8")
-  script(src="bundle.js")
+  if env === 'development'
+    script(src="bundle.js")
+  else
+    script(src="bundle-prod.js")

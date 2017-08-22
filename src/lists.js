@@ -11,14 +11,17 @@ export var languages = [{
   name: 'C/C++',
   src: 'ace/mode/c_cpp'
 }, {
+  name: 'C#',
+  src: 'ace/mode/csharp'
+}, {
   name: 'Objective-C',
   src: 'ace/mode/objectivec'
 }, {
-  name: 'Scala',
-  src: 'ace/mode/scala'
-}, {
   name: 'Go',
   src: 'ace/mode/golang'
+}, {
+  name: 'Scala',
+  src: 'ace/mode/scala'
 }, {
   name: 'Haskell',
   src: 'ace/mode/haskell'
@@ -28,9 +31,6 @@ export var languages = [{
 }, {
   name: 'Swift',
   src: 'ace/mode/swift'
-}, {
-  name: 'C#',
-  src: 'ace/mode/csharp'
 }, {
   name: 'Rust',
   src: 'ace/mode/rust'

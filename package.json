@@ -15,13 +15,15 @@
     "http": "0.0.0",
     "mongoose": "^4.11.6",
     "pug": "^2.0.0-rc.3",
+    "uglify-js": "^3.0.27",
     "ws": "^3.1.0"
   },
   "scripts": {
+    "compile-prod": "./node_modules/browserify/bin/cmd.js src/initEditor.js -o public/bundle.js -t babelify && uglifyjs public/bundle.js -o public/bundle-prod.js",    
     "compile": "./node_modules/browserify/bin/cmd.js src/initEditor.js -o public/bundle.js -t babelify",
-    "test": "nodemon --exec 'npm run compile && npm start' *.js --ignore public/bundle.js",
+    "test": "nodemon --exec 'npm run compile && npm start' server/index.js --ignore public/bundle.js",
     "start": "node server/index.js",
-    "postinstall": "npm run compile"
+    "postinstall": "npm run compile-prod"
   },
   "repository": {
     "type": "git",

@@ -3,7 +3,6 @@ var {
   app
 } = require('./config')
 require('./socket')
-
 app.route('/')
   .get((req, res) => {
     res.render('index', {url: process.env.MAIN_URL})
@@ -23,7 +22,7 @@ app.route('/:sessionId')
         res.end()
         return
       }
-      res.render('editor', {text: st.text, mode: st.mode, socket: process.env.SOCKET_URL})
+      res.render('editor', {text: st.text, mode: st.mode, socket: process.env.SOCKET_URL, env: process.env.NODE_ENV})
     })
   })
 
