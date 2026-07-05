@@ -8,6 +8,17 @@ const WebSocket = require('ws')
 
 const wss = new WebSocket.Server({server})
 var clients = {}
+// seed with the timestamp so handles stay unique across server restarts
+// (Session docs from a previous run may still be in the db)
+var nextClientHandle = Date.now()
+
+// Session docs represent live connections; any left over from a previous
+// run are stale and would block cleanup of their SessionTexts
+Session.remove({}, (err) => {
+  if (err) {
+    console.log(err)
+  }
+})
 
 function addClientToSession (sessionId, clientHandle) {
   Session.findOne({
@@ -21,7 +32,11 @@ function addClientToSession (sessionId, clientHandle) {
         sessionId,
         user: clientHandle
       })
-      newSession.save()
+      newSession.save((err) => {
+        if (err) {
+          console.log(err)
+        }
+      })
     }
   })
 }
@@ -158,10 +173,16 @@ function heartbeat () {
 wss.on('connection', function connection (ws) {
   ws.isAlive = true
   ws.on('pong', heartbeat)
-  let clientHandle = ws._socket._handle.fd
+  let clientHandle = nextClientHandle++
   clients[clientHandle] = ws
   ws.on('message', function incoming (message) {
-    let msgobj = JSON.parse(message)
+    let msgobj
+    try {
+      msgobj = JSON.parse(message)
+    } catch (e) {
+      console.log('ignoring malformed message', e)
+      return
+    }
     if (msgobj.type === 'init') {
       addClientToSession(msgobj.sessionId, clientHandle)
     } else if (msgobj.type === 'syntax') {

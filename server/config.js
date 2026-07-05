@@ -21,6 +21,10 @@ var SessionText = mongoose.model('SessionText', {
   mode: String
 })
 
+var User = mongoose.model('User', {
+  githubId: {type: String, unique: true}
+})
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, '../public')))
@@ -42,6 +46,7 @@ db.once('open', () => {
 module.exports = {
   Session,
   SessionText,
+  User,
   app,
   server
 }

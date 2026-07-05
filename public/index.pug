@@ -1,14 +1,19 @@
 doctype html
 html(lang="en")
 head
-  title WebCoder
-  link(rel="stylesheet" type="text/css" href="bootstrap.min.css")
-  link(rel="stylesheet" type="text/css" href="styles.css")
+  title Git-It-Together
+  link(rel="stylesheet" type="text/css" href="css/bootstrap.min.css")
+  link(rel="stylesheet" type="text/css" href="css/font-awesome.min.css")
+  link(rel="stylesheet" type="text/css" href="css/styles.css")
 body(class="container main-bg")
-  div(class="jumbotron main-panel")
-    h2 WebCoder
-    label Input a url to start collaborating.
+  div(class="jumbotron main-panel text-center")
+    h1 WebCoder
+    label Input a url to start collaborating, or log in to Github to edit an existing project
     form(class="form-horizontal" action='' + url + 'create-session' method="post")
-      div(class="input-group input-group-lg")
+      div(class="form-group input-group input-group-lg")
         span(class="input-group-addon")= url
         input(type="text" name="sessionId" class="form-control")
+      div(class="form-group")
+        a(class="btn btn-lg btn-primary" type="button" href='' + url + 'auth/github')
+          | Login to Github
+          i(class="fa fa-github")
