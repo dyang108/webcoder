@@ -3,32 +3,16 @@ var {
   app
 } = require('./config')
 require('./socket')
+require('./github-auth')
+
 app.route('/')
   .get((req, res) => {
     res.render('index', {url: process.env.MAIN_URL})
   })
 
-app.route('/:sessionId')
-  .get((req, res) => {
-    SessionText.findOne({
-      sessionId: req.params.sessionId
-    }, (err, st) => {
-      if (err) {
-        console.log(err)
-        return
-      }
-      if (!st) {
-        res.redirect(process.env.MAIN_URL)
-        res.end()
-        return
-      }
-      res.render('editor', {text: st.text, mode: st.mode, socket: process.env.SOCKET_URL, env: process.env.NODE_ENV})
-    })
-  })
-
 app.route('/create-session')
   .post((req, res) => {
-    if (req.body.sessionId.includes(' ')) {
+    if (!req.body.sessionId || /\s/.test(req.body.sessionId)) {
       res.redirect(process.env.MAIN_URL)
       return
     }
@@ -37,7 +21,7 @@ app.route('/create-session')
     }, (err, existingSt) => {
       if (err) {
         console.log(err)
-        res.send(500)
+        res.sendStatus(500)
         return
       }
       if (existingSt) {
@@ -52,12 +36,32 @@ app.route('/create-session')
         st.save((err, savedSt) => {
           if (err) {
             console.log(err)
-            res.send(500)
+            res.sendStatus(500)
             return
           }
           res.redirect(process.env.MAIN_URL + req.body.sessionId)
           res.end()
         })
       }
+    })
+  })
+
+// keep the catch-all session route last so it doesn't shadow other routes
+app.route('/:sessionId')
+  .get((req, res) => {
+    SessionText.findOne({
+      sessionId: req.params.sessionId
+    }, (err, st) => {
+      if (err) {
+        console.log(err)
+        res.sendStatus(500)
+        return
+      }
+      if (!st) {
+        res.redirect(process.env.MAIN_URL)
+        res.end()
+        return
+      }
+      res.render('editor', {text: st.text, mode: st.mode, socket: process.env.SOCKET_URL, env: process.env.NODE_ENV})
     })
   })

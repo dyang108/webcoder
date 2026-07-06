@@ -38,7 +38,7 @@ body {
 }
 
 .main-bg {
-    background-image: url('./bg-code.jpg');
+    background-image: url('../img/bg-code.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
