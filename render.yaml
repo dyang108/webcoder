@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: webcoder
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.19.4
+      - key: NODE_ENV
+        value: production
+      # paste in a MongoDB Atlas connection string when creating the service
+      - key: MONGODB_URI
+        sync: false

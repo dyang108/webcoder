@@ -1,4 +1,15 @@
 require('dotenv').config()
+
+// On Render the public hostname is provided at runtime; derive the app
+// urls from it so the blueprint works whatever the service is named
+if (process.env.RENDER_EXTERNAL_HOSTNAME) {
+  if (!process.env.MAIN_URL) {
+    process.env.MAIN_URL = 'https://' + process.env.RENDER_EXTERNAL_HOSTNAME + '/'
+  }
+  if (!process.env.SOCKET_URL) {
+    process.env.SOCKET_URL = 'wss://' + process.env.RENDER_EXTERNAL_HOSTNAME + '/'
+  }
+}
 // Set up server and socket
 var express = require('express')
 var app = express()
@@ -33,7 +44,11 @@ app.set('views', path.join(__dirname, '../public'))
 
 // connect to the database
 var url = process.env.MONGODB_URI
-mongoose.connect(url)
+mongoose.connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+})
 var db = mongoose.connection
 
 db.on('error', console.error.bind(console, 'connection error:'))

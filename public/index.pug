@@ -8,12 +8,16 @@ head
 body(class="container main-bg")
   div(class="jumbotron main-panel text-center")
     h1 WebCoder
-    label Input a url to start collaborating, or log in to Github to edit an existing project
+    if githubEnabled
+      label Input a url to start collaborating, or log in to Github to edit an existing project
+    else
+      label Input a url to start collaborating
     form(class="form-horizontal" action='' + url + 'create-session' method="post")
       div(class="form-group input-group input-group-lg")
         span(class="input-group-addon")= url
         input(type="text" name="sessionId" class="form-control")
-      div(class="form-group")
-        a(class="btn btn-lg btn-primary" type="button" href='' + url + 'auth/github')
-          | Login to Github
-          i(class="fa fa-github")
+      if githubEnabled
+        div(class="form-group")
+          a(class="btn btn-lg btn-primary" type="button" href='' + url + 'auth/github')
+            | Login to Github
+            i(class="fa fa-github")
