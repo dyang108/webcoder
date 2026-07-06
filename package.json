@@ -13,7 +13,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "http": "0.0.0",
-    "mongoose": "^4.11.6",
+    "mongoose": "^5.13.23",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
     "pug": "^2.0.0-rc.3",
@@ -21,7 +21,7 @@
     "ws": "^3.1.0"
   },
   "scripts": {
-    "compile-prod": "./node_modules/browserify/bin/cmd.js src/initEditor.js -o public/bundle.js -t babelify && uglifyjs public/bundle.js -o public/bundle-prod.js",    
+    "compile-prod": "./node_modules/browserify/bin/cmd.js src/initEditor.js -o public/bundle.js -t babelify && uglifyjs public/bundle.js -o public/bundle-prod.js",
     "compile": "./node_modules/browserify/bin/cmd.js src/initEditor.js -o public/bundle.js -t babelify",
     "test": "nodemon --exec 'npm run compile && npm start' server/index.js --ignore public/bundle.js",
     "start": "node server/index.js",

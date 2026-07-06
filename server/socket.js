@@ -14,7 +14,7 @@ var nextClientHandle = Date.now()
 
 // Session docs represent live connections; any left over from a previous
 // run are stale and would block cleanup of their SessionTexts
-Session.remove({}, (err) => {
+Session.deleteMany({}, (err) => {
   if (err) {
     console.log(err)
   }
@@ -128,7 +128,7 @@ function removeSessionLater (sessionId) {
           return
         }
         if (sessions.length === 0) {
-          SessionText.remove({
+          SessionText.deleteMany({
             sessionId
           }, (err) => {
             if (err) {

@@ -3,11 +3,20 @@ var {
   app
 } = require('./config')
 require('./socket')
-require('./github-auth')
+// Github login is optional; without credentials the passport strategy
+// throws at startup, so only wire it up when they are configured
+if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
+  require('./github-auth')
+} else {
+  console.log('GITHUB_CLIENT_ID/GITHUB_CLIENT_SECRET not set, github login disabled')
+}
 
 app.route('/')
   .get((req, res) => {
-    res.render('index', {url: process.env.MAIN_URL})
+    res.render('index', {
+      url: process.env.MAIN_URL,
+      githubEnabled: !!(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET)
+    })
   })
 
 app.route('/create-session')
